@@ -2,6 +2,9 @@ const express = require('express');
 const { resolve } = require('path');
 let sqlite3 = require('sqlite3').verbose();
 let {open} = require('sqlite');
+let cors = require('cors');
+
+app.use(cors());
 
 const app = express();
 const port = 3010;
