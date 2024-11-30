@@ -3,10 +3,10 @@ const { resolve } = require('path');
 let sqlite3 = require('sqlite3').verbose();
 let {open} = require('sqlite');
 let cors = require('cors');
-
+const app = express();
 app.use(cors());
 
-const app = express();
+
 const port = 3010;
 
 
