@@ -19,6 +19,10 @@ let db;
 })();
 
 
+app.get('/', async (req, res) => {
+  res.status(200).json({message: "Server Running..."});
+});
+
 // Exercise 1: Get All Restaurants
 // http://localhost:3000/restaurants
 
