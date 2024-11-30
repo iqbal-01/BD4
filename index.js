@@ -14,7 +14,7 @@ const port = 3010;
 let db;
 (async ()=> {
   db = await open({
-    filename: "./database.sqlite",
+    filename: "./DB/database.sqlite",
     driver: sqlite3.Database
   })
 })();
