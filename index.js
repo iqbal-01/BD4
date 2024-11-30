@@ -3,6 +3,7 @@ const { resolve } = require('path');
 let sqlite3 = require('sqlite3').verbose();
 let {open} = require('sqlite');
 let cors = require('cors');
+let fs = require('fs');
 
 const app = express();
 app.use(cors());
@@ -12,11 +13,27 @@ const port = 3010;
 
 
 let db;
-(async ()=> {
-  db = await open({
-    filename: "./tmp/database.sqlite",
-    driver: sqlite3.Database
-  })
+
+(async () => {
+  try {
+    const tempDbPath = resolve('/tmp/database.sqlite'); // Writable directory in Vercel
+    const sourceDbPath = resolve('./database.sqlite'); // Ensure this matches your local path
+
+    // Copy database to `/tmp` if it doesn't exist
+    if (!fs.existsSync(tempDbPath)) {
+      fs.copyFileSync(sourceDbPath, tempDbPath);
+      console.log('Database copied to /tmp directory.');
+    }
+
+    db = await open({
+      filename: tempDbPath,
+      driver: sqlite3.Database,
+    });
+
+    console.log('Database initialized.');
+  } catch (error) {
+    console.error('Failed to initialize database:', error);
+  }
 })();
 
 
